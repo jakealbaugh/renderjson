@@ -56,6 +56,7 @@
 //     .object.syntax ("{", "}")
 //     .array.syntax  ("[", "]")
 
+var prefix = "rj-";
 var module, window, define, renderjson=(function() {
     var themetext = function(/* [class, text]+ */) {
         var spans = [];
@@ -83,7 +84,7 @@ var module, window, define, renderjson=(function() {
     var text = function(txt) { return document.createTextNode(txt) };
     var div = function() { return document.createElement("div") };
     var span = function(classname) { var s = document.createElement("span");
-                                     if (classname) s.className = "rj-" + classname;
+                                     if (classname) s.className = prefix + classname;
                                      return s; };
     var A = function A(txt, classname, callback) { var a = document.createElement("a");
                                                    if (classname) a.className = classname;
@@ -107,9 +108,9 @@ var module, window, define, renderjson=(function() {
                                     empty.style.display="none"; };
             append(empty,
                    A(options.show, "disclosure", show),
-                   themetext(type+ " syntax", open),
+                   themetext(type + " " + prefix + "syntax", open),
                    A(placeholder, null, show),
-                   themetext(type+ " syntax", close));
+                   themetext(type + " " + prefix + "syntax", close));
 
             var el = append(span(), text(my_indent.slice(0,-1)), empty);
             if (show_level > 0)
@@ -129,16 +130,16 @@ var module, window, define, renderjson=(function() {
             return themetext(null, my_indent, typeof(json), JSON.stringify(json));
 
         if (json.constructor == Array) {
-            if (json.length == 0) return themetext(null, my_indent, "array syntax", "[]");
+            if (json.length == 0) return themetext(null, my_indent, prefix + "array " + prefix + "syntax", "[]");
 
             return disclosure("[", " ... ", "]", "array", function () {
-                var as = append(span("array"), themetext("array syntax", "[", null, "\n"));
+                var as = append(span("array"), themetext(prefix + "array " + prefix + "syntax", "[", null, "\n"));
                 for (var i=0; i<json.length; i++)
                     append(as,
                            _renderjson(options.replacer.call(json, i, json[i]), indent+"    ", false, show_level-1, options),
-                           i != json.length-1 ? themetext("syntax", ",") : [],
+                           i != json.length-1 ? themetext(prefix + "syntax", ",") : [],
                            text("\n"));
-                append(as, themetext(null, indent, "array syntax", "]"));
+                append(as, themetext(null, indent, prefix + "array " + prefix + "syntax", "]"));
                 return as;
             });
         }
