@@ -69,7 +69,7 @@ var module, window, define, renderjson = (function() {
       );
     return spans;
   };
-  var append = function(/* el, ... */) {
+  var append = function(/* el, … */) {
       var el = Array.prototype.shift.call(arguments);
       for (var a = 0; a < arguments.length; a++)
           if (arguments[a].constructor == Array)
@@ -155,7 +155,7 @@ var module, window, define, renderjson = (function() {
     if (json === void 0) return themetext(null, my_indent, "keyword", "undefined");
 
     if (typeof(json) == "string" && json.length > options.max_string_length) {
-      return disclosure('"', JSON.stringify(json).substr(1,options.max_string_length)+"...", '"', "string", function () {
+      return disclosure('"', JSON.stringify(json).substr(1,options.max_string_length)+"…", '"', "string", function () {
         return append(span("string"), themetext(null, my_indent, "string", JSON.stringify(json)));
       });
     }
@@ -166,7 +166,7 @@ var module, window, define, renderjson = (function() {
     if (json.constructor == Array) {
       if (json.length == 0) return themetext(null, my_indent, "array syntax", "[]");
 
-      return disclosure("[", " ... ", "]", "array", function () {
+      return disclosure("[", " … ", "]", "array", function () {
         var as = append(span("array"), themetext("array syntax", "[", null, "\n"));
         for (var i=0; i<json.length; i++)
           append(
@@ -183,7 +183,7 @@ var module, window, define, renderjson = (function() {
     if (isempty(json, options.property_list))
       return themetext(null, my_indent, "object syntax", "{}");
 
-    return disclosure("{", "...", "}", "object", function () {
+    return disclosure("{", "…", "}", "object", function () {
       var os = append(span("object"), themetext("object syntax", "{", null, "\n"));
       for (var k in json) var last = k;
       var keys = options.property_list || Object.keys(json);
