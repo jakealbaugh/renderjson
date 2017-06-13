@@ -155,7 +155,7 @@ var module, window, define, renderjson = (function() {
     if (json === void 0) return themetext(null, my_indent, "keyword", "undefined");
 
     if (typeof(json) == "string" && json.length > options.max_string_length) {
-      return disclosure('"', json.substr(0,options.max_string_length)+" ...", '"', "string", function () {
+      return disclosure('"', JSON.stringify(json).substr(0,options.max_string_length)+" ...", '"', "string", function () {
         return append(span("string"), themetext(null, my_indent, "string", JSON.stringify(json)));
       });
     }
